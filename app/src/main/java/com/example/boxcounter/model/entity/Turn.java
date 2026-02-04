@@ -7,24 +7,24 @@ import androidx.room.PrimaryKey;
 public class Turn {
 
     @PrimaryKey(autoGenerate = true)
-    private Long id;
+    private long id;
     private int quantity;
     private long timestamp;
 
     public Turn() {
     }
 
-    public Turn(Long id, int quantity, long timestamp) {
+    public Turn(long id, int quantity, long timestamp) {
         this.id = id;
         this.quantity = quantity;
         this.timestamp = timestamp;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
