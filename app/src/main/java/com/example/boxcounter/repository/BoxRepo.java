@@ -4,8 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.boxcounter.data.AppDataBase;
-import com.example.boxcounter.data.BoxDao;
+import com.example.boxcounter.data.local.AppDataBase;
+import com.example.boxcounter.data.local.BoxDao;
 import com.example.boxcounter.model.BoxEntry;
 
 import java.util.List;
