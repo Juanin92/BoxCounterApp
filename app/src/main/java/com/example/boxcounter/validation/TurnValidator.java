@@ -8,25 +8,23 @@ import com.example.boxcounter.model.entity.Turn;
 public class TurnValidator {
 
     public void validateTurn(Turn turn){
-        validateTurnExists(turn);
-        validateManualInput(turn.getQuantity());
         validateQuantity(turn.getQuantity());
         validateTimes(turn);
     }
 
-    private void validateTurnExists(Turn turn){
-        if (turn == null){
-            throw new ActiveTurnNotFoundException("Turno no existente");
-        }
-    }
-
-    private void validateManualInput(int quantity){
+    public void validateManualInput(int quantity){
         if (quantity < 1){
             throw new InvalidQuantityException("La cantidad debe ser desde una 1 caja");
         }
         if (quantity > 100){
             throw new InvalidQuantityException("La cantidad debe exceder 100 cajas " +
                     "desde una sola vez");
+        }
+    }
+
+    public void validateTurnExists(Turn turn){
+        if (turn == null){
+            throw new ActiveTurnNotFoundException("Turno no existente");
         }
     }
 

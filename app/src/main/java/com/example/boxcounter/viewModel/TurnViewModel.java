@@ -8,23 +8,37 @@ import androidx.lifecycle.LiveData;
 
 import com.example.boxcounter.model.entity.Turn;
 import com.example.boxcounter.repository.TurnRepo;
+import com.example.boxcounter.validation.TurnValidator;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TurnViewModel extends AndroidViewModel {
 
     private final TurnRepo repo;
     private final LiveData<Turn> activeTurn;
     private final LiveData<List<Turn>> history;
-
+    private final TurnValidator validator;
 
     public TurnViewModel(@NonNull Application application) {
         super(application);
 
         repo = new TurnRepo(application);
+        validator = new TurnValidator();
 
         activeTurn = repo.getActiveTurn();
         history = repo.getHistory();
+    }
+
+    //Test Constructor
+    TurnViewModel(@NonNull Application application, TurnRepo repo, TurnValidator validator) {
+        super(application);
+
+        this.repo = repo;
+        this.validator = validator;
+
+        this.activeTurn = repo.getActiveTurn();
+        this.history = repo.getHistory();
     }
 
     public LiveData<Turn> getActiveTurn() {
@@ -36,40 +50,53 @@ public class TurnViewModel extends AndroidViewModel {
     }
 
     public void increment(){
-        Turn turn = activeTurn.getValue();
-        if (turn == null) return;
-
-        turn.setQuantity(turn.getQuantity() + 1);
-        repo.update(turn);
+       currentTurn(turn -> {
+           turn.setQuantity(turn.getQuantity() + 1);
+           validator.validateTurn(turn);
+           repo.update(turn);
+       });
     }
 
     public void decrement(){
-        Turn turn = activeTurn.getValue();
-        if (turn == null) return;
-
-        if (turn.getQuantity() > 0){
+        currentTurn(turn -> {
+            if (turn.getQuantity() == 0) return;
             turn.setQuantity(turn.getQuantity() - 1);
+            validator.validateTurn(turn);
             repo.update(turn);
-        }
+        });
     }
 
-    public void updateManuallyQuantity(int newQuantity){
+    public void updateManuallyQuantity(int updateQuantity){
+        currentTurn(turn -> {
+            validator.validateManualInput(updateQuantity);
+            turn.setQuantity(updateQuantity);
 
-        if (newQuantity < 0) return;
-
-        Turn turn = activeTurn.getValue();
-        if (turn == null) return;
-
-        turn.setQuantity(newQuantity);
-
-        repo.update(turn);
+            validator.validateTurn(turn);
+            repo.update(turn);
+        });
     }
 
+    public void updateIncrementManuallyQuantity(int newQuantity){
+        currentTurn(turn -> {
+            validator.validateManualInput(newQuantity);
+            turn.setQuantity(turn.getQuantity() + newQuantity);
+
+            validator.validateTurn(turn);
+            repo.update(turn);
+        });
+    }
 
     public void finish(){
-        Turn turn = activeTurn.getValue();
+        currentTurn(turn -> {
+            validator.validateTurn(turn);
+            repo.finishTurn(turn);
+        });
+    }
 
+    private void currentTurn(Consumer<Turn> action){
+        Turn turn = activeTurn.getValue();
         if (turn == null) return;
-        repo.finishTurn(turn);
+
+        action.accept(turn);
     }
 }
