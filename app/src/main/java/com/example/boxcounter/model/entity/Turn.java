@@ -1,30 +1,35 @@
 package com.example.boxcounter.model.entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "turns")
 public class Turn {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private Long id;
     private int quantity;
-    private long timestamp;
+    private Long startTime;
+    private Long endTime;
+    private boolean active;
 
     public Turn() {
     }
 
-    public Turn(long id, int quantity, long timestamp) {
-        this.id = id;
+    @Ignore
+    public Turn(int quantity, Long startTime, Long endTime, boolean active) {
         this.quantity = quantity;
-        this.timestamp = timestamp;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.active = active;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,11 +41,27 @@ public class Turn {
         this.quantity = quantity;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public Long getStartTime() {
+        return startTime;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
+    }
+
+    public Long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
