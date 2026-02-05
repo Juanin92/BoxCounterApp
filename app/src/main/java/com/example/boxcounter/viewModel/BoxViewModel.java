@@ -13,17 +13,17 @@ import java.util.Calendar;
 
 public class BoxViewModel extends AndroidViewModel {
 
-    private final BoxRepo boxRepo;
-    private final LiveData<Integer> totalToday;
+//    private final BoxRepo boxRepo;
+//    private final LiveData<Integer> totalToday;
 
     private static final int DAILY_TARGET = 100;
 
     public BoxViewModel(@NonNull Application application) {
         super(application);
-        boxRepo = new BoxRepo(application);
+//        boxRepo = new BoxRepo(application);
 
         long startToday = getStartOfDayMillis();
-        totalToday = boxRepo.getTotalToday(startToday);
+//        totalToday = boxRepo.getTotalToday(startToday);
     }
 
     /**
@@ -31,7 +31,8 @@ public class BoxViewModel extends AndroidViewModel {
      * @return el conteo entero actualizado automaticamente.
      */
     public LiveData<Integer> getTotalToday(){
-        return totalToday;
+        return null;
+//        return totalToday;
     }
 
     /**
@@ -48,14 +49,14 @@ public class BoxViewModel extends AndroidViewModel {
      */
     public void addBox(){
         BoxEntry entry = new BoxEntry(null,System.currentTimeMillis(),1);
-        boxRepo.insert(entry);
+//        boxRepo.insert(entry);
     }
 
     /**
      * Eliminación del ultimo registro de caja realizada.
      */
     public void undoLast(){
-        boxRepo.deleteLast();
+//        boxRepo.deleteLast();
     }
 
     /**

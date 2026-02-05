@@ -1,4 +1,4 @@
-package com.example.boxcounter.data;
+package com.example.boxcounter.data.local;
 
 import android.content.Context;
 
@@ -6,12 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.boxcounter.model.BoxEntry;
+import com.example.boxcounter.model.entity.Turn;
 
-@Database(entities = {BoxEntry.class}, version = 1, exportSchema = false)
+@Database(entities = {Turn.class}, version = 1, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
-    public abstract BoxDao boxDao();
+    public abstract TurnDao turnDao();
 
     private static volatile AppDataBase INSTANCE;
 
