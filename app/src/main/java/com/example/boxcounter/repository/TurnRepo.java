@@ -47,7 +47,10 @@ public class TurnRepo {
     }
 
     public void update(Turn turn){
-        executor.execute(() -> turnDao.update(turn));
+        executor.execute(() -> {
+            turnDao.update(turn);
+            activeTurn.postValue(turn);
+        });
     }
 
     public void finishTurn(Turn turn){
