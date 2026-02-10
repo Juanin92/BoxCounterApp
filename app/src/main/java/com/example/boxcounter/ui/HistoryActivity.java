@@ -47,7 +47,6 @@ public class HistoryActivity extends AppCompatActivity {
                 .get(TurnViewModel.class);
 
         viewModel.getHistory().observe(this, turns -> {
-            Log.d("HISTORY", "Cantidad: " + turns.size());
             adapter.setTurns(turns);
         });
     }
