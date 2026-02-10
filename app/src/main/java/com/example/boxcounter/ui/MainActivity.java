@@ -56,11 +56,34 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, HistoryActivity.class));
         });
 
+        tvQuantity.setOnLongClickListener(v -> {
+            showManualAddDialog();
+            return true;
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void showManualAddDialog() {
+        View view =  getLayoutInflater().inflate(R.layout.dialog_and_manualquantity, null);
+        EditText et = view.findViewById(R.id.etQuantity);
+
+        new AlertDialog.Builder(this)
+                .setTitle("Agregar Cantidad Manual")
+                .setView(view)
+                .setPositiveButton("Confirmar", (d, w) -> {
+                    String text = et.getText().toString();
+                    if (!text.isEmpty()){
+                        int value =  Integer.parseInt(text);
+                        viewModel.updateManuallyQuantity(value);
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
     private void showAddDialog() {
