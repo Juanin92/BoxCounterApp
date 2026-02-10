@@ -1,7 +1,9 @@
 package com.example.boxcounter.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private TurnViewModel viewModel;
     private TextView tvQuantity;
     private Button btnPlus, btnMinus, btnFinish;
+    private ImageButton btnHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btnPlus = findViewById(R.id.btnPlus);
         btnMinus =  findViewById(R.id.btnMinus);
         btnFinish =  findViewById(R.id.btnFinish);
+        btnHistory =  findViewById(R.id.btnHistory);
 
         viewModel = new ViewModelProvider(this).get(TurnViewModel.class);
         viewModel.getActiveTurn().observe(this, turn -> {
@@ -41,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(v -> {viewModel.increment();});
         btnMinus.setOnClickListener(v -> {viewModel.decrement();});
         btnFinish.setOnClickListener(v -> {viewModel.finish();});
+        btnHistory.setOnClickListener(v -> {
+            startActivity(new Intent(this, HistoryActivity.class));
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

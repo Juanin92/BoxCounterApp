@@ -3,6 +3,7 @@ package com.example.boxcounter.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,11 +27,15 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         Button btnStart = findViewById(R.id.btnStart);
-
         btnStart.setOnClickListener(v -> {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
+        });
+
+        ImageButton btnHistory = findViewById(R.id.btnHistory);
+        btnHistory.setOnClickListener(v -> {
+            startActivity(new Intent(this, HistoryActivity.class));
         });
     }
 }
