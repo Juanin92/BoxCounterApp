@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.boxcounter.R;
+import com.example.boxcounter.ui.auth.BiometricManagerHelper;
 import com.example.boxcounter.viewModel.TurnViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,10 +26,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvQuantity;
     private Button btnPlus, btnMinus, btnFinish;
     private ImageButton btnHistory;
+    private BiometricManagerHelper biometricManagerHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        biometricManagerHelper = new BiometricManagerHelper(this);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
