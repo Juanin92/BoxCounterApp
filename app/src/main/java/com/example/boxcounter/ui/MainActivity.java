@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         tvQuantity.setOnLongClickListener(v -> {
-            biometricManagerHelper.authenticate(this::showManualAddDialog);
+            showManualAddDialog();
             return true;
         });
 
@@ -76,18 +76,28 @@ public class MainActivity extends AppCompatActivity {
         View view =  getLayoutInflater().inflate(R.layout.dialog_and_manualquantity, null);
         EditText et = view.findViewById(R.id.etQuantity);
 
-        new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Agregar Cantidad Manual")
                 .setView(view)
-                .setPositiveButton("Confirmar", (d, w) -> {
-                    String text = et.getText().toString();
-                    if (!text.isEmpty()){
-                        int value =  Integer.parseInt(text);
-                        viewModel.updateManuallyQuantity(value);
-                    }
-                })
+                .setPositiveButton("Confirmar", null)
                 .setNegativeButton("Cancelar", null)
-                .show();
+                .create();
+        dialog.show();
+
+        Button btnConfirm = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        btnConfirm.setOnClickListener(v -> {
+            String text = et.getText().toString();
+            if (text.isEmpty()){
+                et.setError("Ingrese un monto: ");
+                return;
+            }
+
+            int value =  Integer.parseInt(text);
+            biometricManagerHelper.authenticate(() -> {
+                viewModel.updateManuallyQuantity(value);
+                dialog.dismiss();
+            });
+        });
     }
 
     private void showAddDialog() {
