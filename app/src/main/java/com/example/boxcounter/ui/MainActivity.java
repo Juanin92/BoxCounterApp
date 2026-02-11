@@ -54,8 +54,12 @@ public class MainActivity extends AppCompatActivity {
             showAddDialog();
             return true;
         });
+
         btnMinus.setOnClickListener(v -> {viewModel.decrement();});
-        btnFinish.setOnClickListener(v -> {viewModel.finish();});
+        btnFinish.setOnClickListener(v -> {
+            biometricManagerHelper.authenticate(() -> viewModel.finish());
+        });
+
         btnHistory.setOnClickListener(v -> {
             startActivity(new Intent(this, HistoryActivity.class));
         });
