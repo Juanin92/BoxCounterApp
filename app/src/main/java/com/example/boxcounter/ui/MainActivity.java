@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         tvQuantity.setOnLongClickListener(v -> {
-            showManualAddDialog();
+            biometricManagerHelper.authenticate(this::showManualAddDialog);
             return true;
         });
 

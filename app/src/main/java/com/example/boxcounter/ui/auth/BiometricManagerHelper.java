@@ -33,7 +33,7 @@ public class BiometricManagerHelper {
                                     @NonNull BiometricPrompt.AuthenticationResult result) {
                                 super.onAuthenticationSucceeded(result);
 
-                                onSuccess.run();
+                                activity.runOnUiThread(onSuccess);
                             }
 
                             @Override
