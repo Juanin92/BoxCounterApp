@@ -1,5 +1,6 @@
 package com.example.boxcounter.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -12,12 +13,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.boxcounter.R;
+import com.example.boxcounter.ui.auth.BiometricManagerHelper;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
+
+    private BiometricManagerHelper biometricManagerHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        biometricManagerHelper = new BiometricManagerHelper(this);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -29,13 +36,14 @@ public class SplashActivity extends AppCompatActivity {
         Button btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(v -> {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            biometricManagerHelper.authenticate(()-> {
+                startActivity(intent);
+                finish();
+            });
         });
 
         ImageButton btnHistory = findViewById(R.id.btnHistory);
-        btnHistory.setOnClickListener(v -> {
-            startActivity(new Intent(this, HistoryActivity.class));
-        });
+        btnHistory.setOnClickListener(v ->
+                startActivity(new Intent(this, HistoryActivity.class)));
     }
 }
