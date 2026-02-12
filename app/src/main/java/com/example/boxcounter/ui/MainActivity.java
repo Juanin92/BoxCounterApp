@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TurnViewModel viewModel;
     private TextView tvQuantity;
-    private Button btnPlus, btnMinus, btnFinish;
-    private ImageButton btnHistory;
     private BiometricManagerHelper biometricManagerHelper;
 
     @Override
@@ -37,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvQuantity = findViewById(R.id.tvQuantity);
-        btnPlus = findViewById(R.id.btnPlus);
-        btnMinus =  findViewById(R.id.btnMinus);
-        btnFinish =  findViewById(R.id.btnFinish);
-        btnHistory =  findViewById(R.id.btnHistory);
+        Button btnPlus = findViewById(R.id.btnPlus);
+        Button btnMinus = findViewById(R.id.btnMinus);
+        Button btnFinish = findViewById(R.id.btnFinish);
+        ImageButton btnHistory = findViewById(R.id.btnHistory);
 
         viewModel = new ViewModelProvider(this).get(TurnViewModel.class);
         viewModel.getActiveTurn().observe(this, turn -> {
@@ -49,20 +47,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnPlus.setOnClickListener(v -> {viewModel.increment();});
+        btnPlus.setOnClickListener(v -> viewModel.increment());
         btnPlus.setOnLongClickListener(v -> {
             showAddDialog();
             return true;
         });
 
-        btnMinus.setOnClickListener(v -> {viewModel.decrement();});
-        btnFinish.setOnClickListener(v -> {
-            biometricManagerHelper.authenticate(() -> viewModel.finish());
-        });
+        btnMinus.setOnClickListener(v -> viewModel.decrement());
+        btnFinish.setOnClickListener(v -> biometricManagerHelper.authenticate(() -> {
+            viewModel.finish();
 
-        btnHistory.setOnClickListener(v -> {
-            startActivity(new Intent(this, HistoryActivity.class));
-        });
+            Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }));
+
+        btnHistory.setOnClickListener(v -> startActivity(new Intent(this, HistoryActivity.class)));
 
         tvQuantity.setOnLongClickListener(v -> {
             showManualAddDialog();
