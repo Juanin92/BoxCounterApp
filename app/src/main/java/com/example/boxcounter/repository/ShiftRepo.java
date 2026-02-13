@@ -48,27 +48,6 @@ public class ShiftRepo {
         });
     }
 
-//    public LiveData<Shift> getActiveShift(){
-//        executor.execute(() -> {
-//            Shift shift = shiftDao.getActiveShift();
-//            if (shift == null){
-//                shiftDao.closeAllActive();
-//
-//                Shift newShift = new Shift();
-//                newShift.setQuantity(0);
-//                newShift.setStartTime(System.currentTimeMillis());
-//                newShift.setActive(true);
-//                newShift.setEndTime(null);
-//
-//                shiftDao.insert(newShift);
-//                activeShift.postValue(newShift);
-//            }else {
-//                activeShift.postValue(shift);
-//            }
-//        });
-//        return activeShift;
-//    }
-
     public void update(Shift shift){
         executor.execute(() -> {
             shiftDao.update(shift);

@@ -14,10 +14,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.boxcounter.R;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
+import com.example.boxcounter.viewModel.ShiftViewModel;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
+    private ShiftViewModel viewModel;
     private BiometricManagerHelper biometricManagerHelper;
 
     @Override
@@ -45,5 +47,26 @@ public class SplashActivity extends AppCompatActivity {
         ImageButton btnHistory = findViewById(R.id.btnHistory);
         btnHistory.setOnClickListener(v ->
                 startActivity(new Intent(this, HistoryActivity.class)));
+
+        viewModel.getActiveShift().observe(this, shift -> {
+            if (shift == null){
+                btnStart.setText("Iniciar Turno");
+                btnStart.setOnClickListener(v -> {
+                    biometricManagerHelper.authenticate(() -> {
+                        viewModel.startNewShift();
+                        startActivity(new Intent(this, MainActivity.class));
+                        finish();
+                    });
+                });
+            } else {
+                btnStart.setText("Continuar Turno");
+                btnStart.setOnClickListener(v -> {
+                    biometricManagerHelper.authenticate(() -> {
+                        startActivity(new Intent(this, MainActivity.class));
+                        finish();
+                    });
+                });
+            }
+        });
     }
 }

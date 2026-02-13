@@ -49,6 +49,10 @@ public class ShiftViewModel extends AndroidViewModel {
         return history;
     }
 
+    public void startNewShift() {
+        repo.startNewShift();
+    }
+
     public void increment(){
        currentShift(shift -> {
            shift.setQuantity(shift.getQuantity() + 1);
