@@ -6,12 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.boxcounter.model.entity.Turn;
+import com.example.boxcounter.model.entity.Shift;
 
-@Database(entities = {Turn.class}, version = 1, exportSchema = false)
+@Database(entities = {Shift.class}, version = 1, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
-    public abstract TurnDao turnDao();
+    public abstract ShiftDao shiftDao();
 
     private static volatile AppDataBase INSTANCE;
 

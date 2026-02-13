@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.boxcounter.R;
-import com.example.boxcounter.model.entity.Turn;
+import com.example.boxcounter.model.entity.Shift;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,16 +18,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class TurnHistoryAdapter extends RecyclerView.Adapter<TurnHistoryAdapter.TurnViewHolder> {
+public class ShiftHistoryAdapter extends RecyclerView.Adapter<ShiftHistoryAdapter.TurnViewHolder> {
 
-    private List<Turn> turnList = new ArrayList<>();
+    private List<Shift> shiftList = new ArrayList<>();
 
-    public TurnHistoryAdapter() {
+    public ShiftHistoryAdapter() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setTurns(List<Turn> turns){
-        this.turnList = turns;
+    public void setTurns(List<Shift> shifts){
+        this.shiftList = shifts;
         notifyDataSetChanged();
     }
 
@@ -44,17 +44,17 @@ public class TurnHistoryAdapter extends RecyclerView.Adapter<TurnHistoryAdapter.
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TurnViewHolder holder, int position) {
-        Turn turn = turnList.get(position);
+        Shift shift = shiftList.get(position);
 
         SimpleDateFormat format =
                 new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 
         holder.tvStart.setText(
-                "Inicio: " + format.format(new Date(turn.getStartTime())));
+                "Inicio: " + format.format(new Date(shift.getStartTime())));
 
-        if (turn.getEndTime() != null) {
+        if (shift.getEndTime() != null) {
             holder.tvEnd.setText(
-                "Fin: " + format.format(new Date(turn.getEndTime())));
+                "Fin: " + format.format(new Date(shift.getEndTime())));
         } else {
             holder.tvEnd.setText("En curso");
         }
@@ -63,15 +63,15 @@ public class TurnHistoryAdapter extends RecyclerView.Adapter<TurnHistoryAdapter.
 //                "Fin: " + format.format(new Date(turn.getEndTime())));
 
         holder.tvQuantity.setText(
-                "Cantidad: " + turn.getQuantity());
+                "Cantidad: " + shift.getQuantity());
 
         holder.tvActive.setText(
-                "Activo: " + turn.getActive());
+                "Activo: " + shift.getActive());
     }
 
     @Override
     public int getItemCount() {
-        return turnList.size();
+        return shiftList.size();
     }
 
     static class TurnViewHolder extends RecyclerView.ViewHolder {

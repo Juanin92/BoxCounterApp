@@ -18,11 +18,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.boxcounter.R;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
-import com.example.boxcounter.viewModel.TurnViewModel;
+import com.example.boxcounter.viewModel.ShiftViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TurnViewModel viewModel;
+    private ShiftViewModel viewModel;
     private TextView tvQuantity;
     private BiometricManagerHelper biometricManagerHelper;
 
@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         Button btnFinish = findViewById(R.id.btnFinish);
         ImageButton btnHistory = findViewById(R.id.btnHistory);
 
-        viewModel = new ViewModelProvider(this).get(TurnViewModel.class);
-        viewModel.getActiveTurn().observe(this, turn -> {
-            if (turn != null){
-                tvQuantity.setText(String.valueOf(turn.getQuantity()));
+        viewModel = new ViewModelProvider(this).get(ShiftViewModel.class);
+        viewModel.getActiveShift().observe(this, shift -> {
+            if (shift != null){
+                tvQuantity.setText(String.valueOf(shift.getQuantity()));
             }
         });
 

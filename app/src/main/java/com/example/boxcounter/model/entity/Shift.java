@@ -4,8 +4,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "turns")
-public class Turn {
+@Entity(tableName = "shifts")
+public class Shift {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
@@ -14,11 +14,11 @@ public class Turn {
     private Long endTime;
     private boolean active;
 
-    public Turn() {
+    public Shift() {
     }
 
     @Ignore
-    public Turn(int quantity, Long startTime, Long endTime, boolean active) {
+    public Shift(int quantity, Long startTime, Long endTime, boolean active) {
         this.quantity = quantity;
         this.startTime = startTime;
         this.endTime = endTime;

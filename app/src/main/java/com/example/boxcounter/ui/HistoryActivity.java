@@ -1,7 +1,6 @@
 package com.example.boxcounter.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,14 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.boxcounter.R;
-import com.example.boxcounter.adapter.TurnHistoryAdapter;
-import com.example.boxcounter.viewModel.TurnViewModel;
+import com.example.boxcounter.adapter.ShiftHistoryAdapter;
+import com.example.boxcounter.viewModel.ShiftViewModel;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private TurnViewModel viewModel;
+    private ShiftViewModel viewModel;
     private RecyclerView recycleView;
-    private TurnHistoryAdapter adapter;
+    private ShiftHistoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +38,15 @@ public class HistoryActivity extends AppCompatActivity {
                 new LinearLayoutManager(this)
         );
 
-        adapter = new TurnHistoryAdapter();
+        adapter = new ShiftHistoryAdapter();
 
         recycleView.setAdapter(adapter);
 
         viewModel = new ViewModelProvider(this)
-                .get(TurnViewModel.class);
+                .get(ShiftViewModel.class);
 
-        viewModel.getHistory().observe(this, turns -> {
-            adapter.setTurns(turns);
+        viewModel.getHistory().observe(this, shifts -> {
+            adapter.setTurns(shifts);
         });
     }
 }

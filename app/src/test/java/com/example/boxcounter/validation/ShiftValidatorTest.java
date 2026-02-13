@@ -2,57 +2,57 @@ package com.example.boxcounter.validation;
 
 import static org.junit.Assert.*;
 
-import com.example.boxcounter.exceptions.ActiveTurnNotFoundException;
+import com.example.boxcounter.exceptions.ActiveShiftNotFoundException;
 import com.example.boxcounter.exceptions.InvalidQuantityException;
-import com.example.boxcounter.exceptions.InvalidTurnStateException;
-import com.example.boxcounter.model.entity.Turn;
+import com.example.boxcounter.exceptions.InvalidShiftStateException;
+import com.example.boxcounter.model.entity.Shift;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class TurnValidatorTest {
+public class ShiftValidatorTest {
 
-    private TurnValidator validator;
-    private Turn turn;
+    private ShiftValidator validator;
+    private Shift shift;
 
     @Before
     public void setUp(){
-        validator =  new TurnValidator();
-        turn = new Turn(100,System.currentTimeMillis(),System.currentTimeMillis(), false);
+        validator =  new ShiftValidator();
+        shift = new Shift(100,System.currentTimeMillis(),System.currentTimeMillis(), false);
     }
 
     //Prueba para cuando un turno sea nulo
     @Test
-    public void validateTurn_nullTurn(){
-        ActiveTurnNotFoundException ex = assertThrows(ActiveTurnNotFoundException.class,
-                () -> validator.validateTurnExists(null));
+    public void validateShift_nullShift(){
+        ActiveShiftNotFoundException ex = assertThrows(ActiveShiftNotFoundException.class,
+                () -> validator.validateShiftExists(null));
         assertEquals("Turno no existente", ex.getMessage());
     }
 
     //Prueba para validar que cantidad de cajas no sea menor a 0
     @Test
     public void validateQuantity_negativeValue(){
-        turn.setQuantity(-1);
+        shift.setQuantity(-1);
         InvalidQuantityException ex = assertThrows(InvalidQuantityException.class,
-                () -> validator.validateTurn(turn));
+                () -> validator.validateShift(shift));
         assertEquals("La cantidad no puede ser menor a 0", ex.getMessage());
     }
 
     //Prueba para validar que el registro de hora de inicio de turno no sea nulo
     @Test
     public void validateTimes_nullStartTime(){
-        turn.setStartTime(null);
-        InvalidTurnStateException ex = assertThrows(InvalidTurnStateException.class,
-                () -> validator.validateTurn(turn));
+        shift.setStartTime(null);
+        InvalidShiftStateException ex = assertThrows(InvalidShiftStateException.class,
+                () -> validator.validateShift(shift));
         assertEquals("La hora inicial esta vacía", ex.getMessage());
     }
 
     //Prueba para validar que la hora de cierre de turno no sea anterior al comienzo de turno
     @Test
     public void validateTimes_invalidTime(){
-        turn.setEndTime(System.currentTimeMillis() - 1000);
-        InvalidTurnStateException ex = assertThrows(InvalidTurnStateException.class,
-                () -> validator.validateTurn(turn));
+        shift.setEndTime(System.currentTimeMillis() - 1000);
+        InvalidShiftStateException ex = assertThrows(InvalidShiftStateException.class,
+                () -> validator.validateShift(shift));
         assertEquals("La hora de cierre no puede ser antes a la hora de inicio",
                 ex.getMessage());
     }
