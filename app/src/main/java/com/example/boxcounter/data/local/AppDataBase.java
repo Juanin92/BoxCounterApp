@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.boxcounter.model.entity.Shift;
 
-@Database(entities = {Shift.class}, version = 1, exportSchema = false)
+@Database(entities = {Shift.class}, version = 2, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract ShiftDao shiftDao();
