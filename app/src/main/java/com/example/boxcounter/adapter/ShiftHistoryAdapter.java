@@ -66,7 +66,7 @@ public class ShiftHistoryAdapter extends RecyclerView.Adapter<ShiftHistoryAdapte
                 "Cantidad: " + shift.getQuantity());
 
         holder.tvActive.setText(
-                "Activo: " + shift.getActive());
+                "Activo: " + shift.isActive());
     }
 
     @Override

@@ -57,7 +57,7 @@ public class Shift {
         this.endTime = endTime;
     }
 
-    public boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
