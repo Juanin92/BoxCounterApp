@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.boxcounter.R;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
@@ -26,6 +27,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        viewModel = new ViewModelProvider(this).get(ShiftViewModel.class);
         biometricManagerHelper = new BiometricManagerHelper(this);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
@@ -36,14 +38,6 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         Button btnStart = findViewById(R.id.btnStart);
-        btnStart.setOnClickListener(v -> {
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            biometricManagerHelper.authenticate(()-> {
-                startActivity(intent);
-                finish();
-            });
-        });
-
         ImageButton btnHistory = findViewById(R.id.btnHistory);
         btnHistory.setOnClickListener(v ->
                 startActivity(new Intent(this, HistoryActivity.class)));
