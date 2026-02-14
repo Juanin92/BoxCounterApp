@@ -36,7 +36,7 @@ public class ShiftHistoryAdapter extends RecyclerView.Adapter<ShiftHistoryAdapte
     public TurnViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                                 int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_turn, parent, false);
+                .inflate(R.layout.item_shift, parent, false);
 
         return new TurnViewHolder(view);
     }
@@ -49,24 +49,23 @@ public class ShiftHistoryAdapter extends RecyclerView.Adapter<ShiftHistoryAdapte
         SimpleDateFormat format =
                 new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 
-        holder.tvStart.setText(
-                "Inicio: " + format.format(new Date(shift.getStartTime())));
+        holder.tvStart.setText(format.format(new Date(shift.getStartTime())));
 
         if (shift.getEndTime() != null) {
-            holder.tvEnd.setText(
-                "Fin: " + format.format(new Date(shift.getEndTime())));
+            holder.tvEnd.setText(format.format(new Date(shift.getEndTime())));
         } else {
-            holder.tvEnd.setText("En curso");
+            holder.tvEnd.setText("En Curso");
         }
 
-//        holder.tvEnd.setText(
-//                "Fin: " + format.format(new Date(turn.getEndTime())));
+        holder.tvQuantity.setText(String.valueOf(shift.getQuantity()));
 
-        holder.tvQuantity.setText(
-                "Cantidad: " + shift.getQuantity());
-
-        holder.tvActive.setText(
-                "Activo: " + shift.isActive());
+        if (shift.isActive()){
+            holder.tvActive.setText(
+                    "Activo");
+        } else {
+            holder.tvActive.setText(
+                    "Terminado");
+        }
     }
 
     @Override
