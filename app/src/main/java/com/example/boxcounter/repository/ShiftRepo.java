@@ -28,6 +28,7 @@ public class ShiftRepo {
     public LiveData<Shift> getActiveShift(){
         executor.execute(() -> {
             Shift shift = shiftDao.getActiveShift();
+            if (shift != null)  shift = validateShiftTimeOut(shift);
             activeShift.postValue(shift);
         });
         return activeShift;
@@ -67,5 +68,20 @@ public class ShiftRepo {
 
     public LiveData<List<Shift>> getHistory(){
         return shiftDao.getAllShifts();
+    }
+
+    private Shift validateShiftTimeOut(Shift shift){
+        long now = System.currentTimeMillis();
+        long diff = now - shift.getStartTime();
+        long hour = diff / (1000 * 60 * 60);
+
+        if (hour >= 15){
+            shift.setActive(false);
+            shift.setEndTime(now);
+            shiftDao.update(shift);
+            shift = null;
+        }
+
+        return shift;
     }
 }

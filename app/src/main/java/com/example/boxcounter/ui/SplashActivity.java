@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -14,8 +15,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.boxcounter.R;
+import com.example.boxcounter.model.entity.Shift;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
 import com.example.boxcounter.viewModel.ShiftViewModel;
+
+import java.util.Date;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
@@ -31,7 +35,8 @@ public class SplashActivity extends AppCompatActivity {
         biometricManagerHelper = new BiometricManagerHelper(this);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main),
+                (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -45,22 +50,38 @@ public class SplashActivity extends AppCompatActivity {
         viewModel.getActiveShift().observe(this, shift -> {
             if (shift == null){
                 btnStart.setText("Iniciar Turno");
-                btnStart.setOnClickListener(v -> {
-                    biometricManagerHelper.authenticate(() -> {
-                        viewModel.startNewShift();
-                        startActivity(new Intent(this, MainActivity.class));
-                        finish();
-                    });
-                });
+                btnStart.setOnClickListener(v -> biometricManagerHelper.authenticate(() -> {
+                    viewModel.startNewShift();
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                }));
             } else {
-                btnStart.setText("Continuar Turno");
-                btnStart.setOnClickListener(v -> {
-                    biometricManagerHelper.authenticate(() -> {
-                        startActivity(new Intent(this, MainActivity.class));
-                        finish();
-                    });
-                });
+                showActiveShiftDialog(shift);
             }
         });
+    }
+
+    private void showActiveShiftDialog(Shift shift) {
+
+        String message =
+                "Inicio: " + new Date(shift.getStartTime()) +
+                        "\nCantidad: " + shift.getQuantity() + " cajas";
+
+        new AlertDialog.Builder(this)
+                .setTitle("Turno Activo Detectado")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Continuar", (d, w)
+                        -> biometricManagerHelper.authenticate(() -> {
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                }))
+                .setNegativeButton("Nuevo Turno", (d, w)
+                        -> biometricManagerHelper.authenticate(() -> {
+                    viewModel.startNewShift();
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                }))
+                .show();
     }
 }
