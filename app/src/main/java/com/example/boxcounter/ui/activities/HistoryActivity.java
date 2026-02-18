@@ -1,6 +1,5 @@
-package com.example.boxcounter.ui;
+package com.example.boxcounter.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 

@@ -1,4 +1,4 @@
-package com.example.boxcounter.ui;
+package com.example.boxcounter.ui.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
