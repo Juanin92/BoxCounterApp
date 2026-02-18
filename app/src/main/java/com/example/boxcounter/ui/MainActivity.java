@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         Button btnPlus = findViewById(R.id.btnPlus);
         Button btnMinus = findViewById(R.id.btnMinus);
         Button btnFinish = findViewById(R.id.btnFinish);
-        ImageButton btnHistory = findViewById(R.id.btnHistory);
 
         viewModel = new ViewModelProvider(this).get(ShiftViewModel.class);
         viewModel.getActiveShift().observe(this, shift -> {
@@ -62,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }));
 
-        btnHistory.setOnClickListener(v -> startActivity(new Intent(this, HistoryActivity.class)));
+        ImageButton btnHistory = findViewById(R.id.btnHistory);
+        btnHistory.setOnClickListener(v -> startActivity(
+                new Intent(this, HistoryActivity.class)));
 
         tvQuantity.setOnLongClickListener(v -> {
             showManualAddDialog();

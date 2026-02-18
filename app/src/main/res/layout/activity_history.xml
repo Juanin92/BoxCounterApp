@@ -47,14 +47,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
-
-        <!-- Ícono decorativo -->
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_history"
-            app:tint="#6366F1"
-            android:contentDescription="Historial"/>
     </LinearLayout>
 
     <!-- Título e info -->
