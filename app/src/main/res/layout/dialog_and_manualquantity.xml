@@ -143,6 +143,7 @@
             <!-- Boton cancelar -->
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.Material3.Button.TextButton"
+                android:id="@+id/btnCancelManual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"

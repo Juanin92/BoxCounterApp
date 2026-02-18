@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.boxcounter.R;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
+import com.example.boxcounter.ui.dialogs.ManualAddDialog;
 import com.example.boxcounter.viewModel.ShiftViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -66,7 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 new Intent(this, HistoryActivity.class)));
 
         tvQuantity.setOnLongClickListener(v -> {
-            showManualAddDialog();
+            ManualAddDialog dialog = ManualAddDialog.newInstance(value -> {
+                biometricManagerHelper.authenticate(() -> viewModel.updateManuallyQuantity(value));
+            });
+            dialog.show(getSupportFragmentManager(), "ManualAddDialog");
             return true;
         });
 
@@ -74,34 +78,6 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-    }
-
-    private void showManualAddDialog() {
-        View view =  getLayoutInflater().inflate(R.layout.dialog_and_manualquantity, null);
-        EditText et = view.findViewById(R.id.etQuantity);
-
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Agregar Cantidad Manual")
-                .setView(view)
-                .setPositiveButton("Confirmar", null)
-                .setNegativeButton("Cancelar", null)
-                .create();
-        dialog.show();
-
-        Button btnConfirm = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        btnConfirm.setOnClickListener(v -> {
-            String text = et.getText().toString();
-            if (text.isEmpty()){
-                et.setError("Ingrese un monto: ");
-                return;
-            }
-
-            int value =  Integer.parseInt(text);
-            biometricManagerHelper.authenticate(() -> {
-                viewModel.updateManuallyQuantity(value);
-                dialog.dismiss();
-            });
         });
     }
 
