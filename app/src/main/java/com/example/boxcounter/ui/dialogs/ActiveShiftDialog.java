@@ -14,8 +14,8 @@ public class ActiveShiftDialog extends DialogFragment {
         void onFinish();
     }
 
-    private OnActiveShiftActionListener listener;
-    private String message;
+    private final OnActiveShiftActionListener listener;
+    private final String message;
 
     public ActiveShiftDialog(String message, OnActiveShiftActionListener listener){
         this.message = message;
