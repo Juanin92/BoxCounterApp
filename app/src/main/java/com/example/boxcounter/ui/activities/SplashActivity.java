@@ -81,6 +81,7 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void onFinish() {
                         biometricManagerHelper.authenticate(() -> {
+                            viewModel.finish();
                             viewModel.startNewShift();
                             startActivity(new Intent(SplashActivity.this,
                                     MainActivity.class));
