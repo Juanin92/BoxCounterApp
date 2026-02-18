@@ -19,8 +19,6 @@ import com.example.boxcounter.ui.auth.BiometricManagerHelper;
 import com.example.boxcounter.ui.dialogs.ActiveShiftDialog;
 import com.example.boxcounter.viewModel.ShiftViewModel;
 
-import java.util.Date;
-
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
@@ -63,11 +61,10 @@ public class SplashActivity extends AppCompatActivity {
 
     private void showActiveShiftDialog(Shift shift) {
 
-        String message =
-                "Inicio: " + new Date(shift.getStartTime()) +
-                        "\nCantidad: " + shift.getQuantity() + " cajas";
+        String date = android.text.format.DateFormat.format("dd/MM/yy HH:mm",
+                shift.getStartTime()).toString();
 
-        ActiveShiftDialog dialog = new ActiveShiftDialog(message,
+        ActiveShiftDialog dialog = new ActiveShiftDialog(date, shift.getQuantity(),
                 new ActiveShiftDialog.OnActiveShiftActionListener() {
                     @Override
                     public void onContinue() {
@@ -79,7 +76,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFinish() {
+                    public void onNewShift() {
                         biometricManagerHelper.authenticate(() -> {
                             viewModel.finish();
                             viewModel.startNewShift();
