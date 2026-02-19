@@ -1,69 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    android:background="#0F172A">
 
+    <!-- Fondo decorativo -->
+    <View
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:background="@drawable/bg_gradient_circle_primary"
+        android:alpha="0.08"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:translationX="-100dp"
+        android:translationY="-80dp"/>
+
+    <!-- Top Bar -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="24dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp">
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="52dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <include
-            layout="@layout/view_history_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"/>
-
-
-        <TextView
-            android:id="@+id/tvQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="0"
-            android:textSize="48sp"
-            android:textStyle="bold" />
-
+        <!-- Indicador de turno activo -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-            <Button
-                android:id="@+id/btnMinus"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:text="-"
-                android:textSize="32sp" />
+            <View
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/bg_dot_active"/>
 
-            <Space
-                android:layout_width="24dp"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btnPlus"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:text="+"
-                android:textSize="32sp" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Turno activo"
+                android:textSize="14sp"
+                android:textColor="#6366F1"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginStart="8dp"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnFinish"
+        <include
+            android:id="@+id/btnHistory"
+            layout="@layout/view_history_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!-- Card del contador principal -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCounter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="16dp"
+        app:cardBackgroundColor="#1E293B"
+        app:strokeColor="#334155"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toTopOf="@id/btnFinish"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.38">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Finalizar Turno" />
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp"
+            android:paddingTop="36dp"
+            android:paddingBottom="40dp"
+            android:gravity="center">
 
-    </LinearLayout>
+            <!-- Etiqueta -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_chip_subtle"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_box"
+                    app:tint="#94A3B8"
+                    android:contentDescription="Boxes"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cantidad Actual"
+                    android:textSize="13sp"
+                    android:textColor="#94A3B8"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.08"
+                    android:textAllCaps="true"
+                    android:layout_marginStart="6dp"/>
+            </LinearLayout>
+
+            <!-- Número grande del contador -->
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="96sp"
+                android:textStyle="bold"
+                android:textColor="#F8FAFC"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp"
+                android:includeFontPadding="false"/>
+
+            <!-- Botones + y - -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMinus"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:text="-"
+                    android:textSize="32sp"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="#EF4444"
+                    app:rippleColor="#FCA5A5"
+                    android:stateListAnimator="@null"/>
+
+                <Space
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPlus"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:text="+"
+                    android:textSize="32sp"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="#22C55E"
+                    app:rippleColor="#86EFAC"
+                    android:stateListAnimator="@null"/>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Botón Finalizar Turno -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFinish"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="36dp"
+        android:text="Finalizar Turno"
+        android:textSize="16sp"
+        android:textColor="#F8FAFC"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif-medium"
+        app:cornerRadius="16dp"
+        app:backgroundTint="#334155"
+        app:strokeColor="#475569"
+        app:strokeWidth="1dp"
+        app:rippleColor="#6366F1"
+        app:icon="@drawable/ic_check_circle"
+        app:iconGravity="textEnd"
+        app:iconTint="#6366F1"
+        app:iconPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

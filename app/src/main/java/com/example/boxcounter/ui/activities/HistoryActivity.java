@@ -1,6 +1,7 @@
-package com.example.boxcounter.ui;
+package com.example.boxcounter.ui.activities;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,5 +49,8 @@ public class HistoryActivity extends AppCompatActivity {
         viewModel.getHistory().observe(this, shifts -> {
             adapter.setTurns(shifts);
         });
+
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
     }
 }

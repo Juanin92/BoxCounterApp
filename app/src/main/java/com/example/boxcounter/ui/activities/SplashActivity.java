@@ -1,4 +1,4 @@
-package com.example.boxcounter.ui;
+package com.example.boxcounter.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,9 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.boxcounter.R;
 import com.example.boxcounter.model.entity.Shift;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
+import com.example.boxcounter.ui.dialogs.ActiveShiftDialog;
 import com.example.boxcounter.viewModel.ShiftViewModel;
-
-import java.util.Date;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
@@ -63,25 +61,32 @@ public class SplashActivity extends AppCompatActivity {
 
     private void showActiveShiftDialog(Shift shift) {
 
-        String message =
-                "Inicio: " + new Date(shift.getStartTime()) +
-                        "\nCantidad: " + shift.getQuantity() + " cajas";
+        String date = android.text.format.DateFormat.format("dd/MM/yy HH:mm",
+                shift.getStartTime()).toString();
 
-        new AlertDialog.Builder(this)
-                .setTitle("Turno Activo Detectado")
-                .setMessage(message)
-                .setCancelable(false)
-                .setPositiveButton("Continuar", (d, w)
-                        -> biometricManagerHelper.authenticate(() -> {
-                    startActivity(new Intent(this, MainActivity.class));
-                    finish();
-                }))
-                .setNegativeButton("Nuevo Turno", (d, w)
-                        -> biometricManagerHelper.authenticate(() -> {
-                    viewModel.startNewShift();
-                    startActivity(new Intent(this, MainActivity.class));
-                    finish();
-                }))
-                .show();
+        ActiveShiftDialog dialog = new ActiveShiftDialog(date, shift.getQuantity(),
+                new ActiveShiftDialog.OnActiveShiftActionListener() {
+                    @Override
+                    public void onContinue() {
+                        biometricManagerHelper.authenticate(() -> {
+                            startActivity(new Intent(SplashActivity.this,
+                                    MainActivity.class));
+                            finish();
+                        });
+                    }
+
+                    @Override
+                    public void onNewShift() {
+                        biometricManagerHelper.authenticate(() -> {
+                            viewModel.finish();
+                            viewModel.startNewShift();
+                            startActivity(new Intent(SplashActivity.this,
+                                    MainActivity.class));
+                            finish();
+                        });
+                    }
+                });
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "ActiveShiftDialog");
     }
 }
