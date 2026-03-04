@@ -1,4 +1,4 @@
-package com.example.boxcounter.ui.auth;
+package com.boxcounter.app.ui.auth;
 
 import android.app.Activity;
 import android.widget.Toast;

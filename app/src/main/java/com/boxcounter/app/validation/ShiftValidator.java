@@ -1,8 +1,8 @@
-package com.example.boxcounter.validation;
+package com.boxcounter.app.validation;
 
-import com.example.boxcounter.exceptions.ActiveShiftNotFoundException;
-import com.example.boxcounter.exceptions.InvalidQuantityException;
-import com.example.boxcounter.exceptions.InvalidShiftStateException;
+import com.boxcounter.app.exceptions.ActiveShiftNotFoundException;
+import com.boxcounter.app.exceptions.InvalidQuantityException;
+import com.boxcounter.app.exceptions.InvalidShiftStateException;
 import com.example.boxcounter.core.entity.Shift;
 public class ShiftValidator {
 

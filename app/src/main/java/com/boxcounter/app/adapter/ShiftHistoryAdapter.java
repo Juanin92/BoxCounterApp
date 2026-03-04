@@ -1,4 +1,4 @@
-package com.example.boxcounter.adapter;
+package com.boxcounter.app.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

@@ -2,9 +2,10 @@ package com.example.boxcounter.validation;
 
 import static org.junit.Assert.*;
 
-import com.example.boxcounter.exceptions.ActiveShiftNotFoundException;
-import com.example.boxcounter.exceptions.InvalidQuantityException;
-import com.example.boxcounter.exceptions.InvalidShiftStateException;
+import com.boxcounter.app.exceptions.ActiveShiftNotFoundException;
+import com.boxcounter.app.exceptions.InvalidQuantityException;
+import com.boxcounter.app.exceptions.InvalidShiftStateException;
+import com.boxcounter.app.validation.ShiftValidator;
 import com.example.boxcounter.core.entity.Shift;
 
 import org.junit.Before;

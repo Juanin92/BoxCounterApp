@@ -1,4 +1,4 @@
-package com.example.boxcounter.ui.dialogs;
+package com.boxcounter.app.ui.dialogs;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,25 +15,25 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.boxcounter.R;
 
-public class ManualAddDialog extends DialogFragment {
+public class AddQuantityDialog extends DialogFragment {
 
     public interface OnQuantityAddedListener{
         void onQuantityAdded(int value);
     }
 
-    private OnQuantityAddedListener listener;
+    private AddQuantityDialog.OnQuantityAddedListener listener;
 
-    public static ManualAddDialog newInstance(OnQuantityAddedListener listener){
-        ManualAddDialog fragment = new ManualAddDialog();
+    public static AddQuantityDialog newInstance(AddQuantityDialog.OnQuantityAddedListener listener){
+        AddQuantityDialog fragment = new AddQuantityDialog();
         fragment.listener = listener;
         return fragment;
     }
 
     @Override
     @Nullable
-    public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.dialog_and_manualquantity, container,
+        View view = inflater.inflate(R.layout.dialog_and_quantity, container,
                 false);
         setupViews(view);
         return view;
@@ -41,8 +41,8 @@ public class ManualAddDialog extends DialogFragment {
 
     private void setupViews(View view) {
         EditText et = view.findViewById(R.id.etQuantity);
-        Button btnConfirm = view.findViewById(R.id.btnConfirmManual);
-        Button btnCancel = view.findViewById(R.id.btnCancelManual);
+        Button btnConfirm = view.findViewById(R.id.btnConfirm);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
 
         btnConfirm.setOnClickListener(v -> {
             String text = et.getText().toString();

@@ -12,9 +12,10 @@ import android.app.Application;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 
+import com.boxcounter.app.viewModel.ShiftViewModel;
 import com.example.boxcounter.core.entity.Shift;
-import com.example.boxcounter.repository.ShiftRepo;
-import com.example.boxcounter.validation.ShiftValidator;
+import com.boxcounter.app.repository.ShiftRepo;
+import com.boxcounter.app.validation.ShiftValidator;
 
 import org.junit.Before;
 import org.junit.Rule;

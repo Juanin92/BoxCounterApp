@@ -1,4 +1,4 @@
-package com.example.boxcounter.ui.activities;
+package com.boxcounter.app.ui.activities;
 
 
 import android.content.Intent;
@@ -15,10 +15,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.boxcounter.R;
-import com.example.boxcounter.ui.auth.BiometricManagerHelper;
-import com.example.boxcounter.ui.dialogs.AddQuantityDialog;
-import com.example.boxcounter.ui.dialogs.ManualAddDialog;
-import com.example.boxcounter.viewModel.ShiftViewModel;
+import com.boxcounter.app.ui.auth.BiometricManagerHelper;
+import com.boxcounter.app.ui.dialogs.AddQuantityDialog;
+import com.boxcounter.app.ui.dialogs.ManualAddDialog;
+import com.boxcounter.app.viewModel.ShiftViewModel;
 
 public class MainActivity extends AppCompatActivity {
 

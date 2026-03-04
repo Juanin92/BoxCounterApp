@@ -1,12 +1,12 @@
-package com.example.boxcounter.repository;
+package com.boxcounter.app.repository;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.boxcounter.data.local.AppDataBase;
-import com.example.boxcounter.data.local.ShiftDao;
+import com.boxcounter.app.data.local.AppDataBase;
+import com.boxcounter.app.data.local.ShiftDao;
 import com.example.boxcounter.core.entity.Shift;
 import java.util.List;
 import java.util.concurrent.ExecutorService;

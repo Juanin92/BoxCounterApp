@@ -1,4 +1,4 @@
-package com.example.boxcounter.ui.activities;
+package com.boxcounter.app.ui.activities;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.boxcounter.R;
-import com.example.boxcounter.adapter.ShiftHistoryAdapter;
-import com.example.boxcounter.viewModel.ShiftViewModel;
+import com.boxcounter.app.adapter.ShiftHistoryAdapter;
+import com.boxcounter.app.viewModel.ShiftViewModel;
 
 public class HistoryActivity extends AppCompatActivity {
 

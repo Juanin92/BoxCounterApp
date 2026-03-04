@@ -1,4 +1,4 @@
-package com.example.boxcounter.ui.dialogs;
+package com.boxcounter.app.ui.dialogs;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;

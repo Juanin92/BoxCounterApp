@@ -1,4 +1,4 @@
-package com.example.boxcounter.viewModel;
+package com.boxcounter.app.viewModel;
 
 import android.app.Application;
 
@@ -7,8 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.boxcounter.core.entity.Shift;
-import com.example.boxcounter.repository.ShiftRepo;
-import com.example.boxcounter.validation.ShiftValidator;
+import com.boxcounter.app.repository.ShiftRepo;
+import com.boxcounter.app.validation.ShiftValidator;
 
 import java.util.List;
 import java.util.function.Consumer;

@@ -1,4 +1,4 @@
-package com.example.boxcounter.data.local;
+package com.boxcounter.app.data.local;
 
 import android.content.Context;
 

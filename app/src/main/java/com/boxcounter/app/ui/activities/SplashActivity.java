@@ -1,4 +1,4 @@
-package com.example.boxcounter.ui.activities;
+package com.boxcounter.app.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -15,9 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.boxcounter.R;
 import com.example.boxcounter.core.entity.Shift;
-import com.example.boxcounter.ui.auth.BiometricManagerHelper;
-import com.example.boxcounter.ui.dialogs.ActiveShiftDialog;
-import com.example.boxcounter.viewModel.ShiftViewModel;
+import com.boxcounter.app.ui.auth.BiometricManagerHelper;
+import com.boxcounter.app.ui.dialogs.ActiveShiftDialog;
+import com.boxcounter.app.viewModel.ShiftViewModel;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
