@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "BoxCounter"
 include ':app'
+include ':wear'
