@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.boxcounter.R;
+import com.boxcounter.app.R;
 import com.boxcounter.app.adapter.ShiftHistoryAdapter;
 import com.boxcounter.app.viewModel.ShiftViewModel;
 

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.boxcounter.R;
+import com.boxcounter.app.R;
 
 public class AddQuantityDialog extends DialogFragment {
 

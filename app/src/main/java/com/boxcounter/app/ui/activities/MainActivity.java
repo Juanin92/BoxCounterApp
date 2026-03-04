@@ -14,7 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.boxcounter.R;
+import com.boxcounter.app.R;
 import com.boxcounter.app.ui.auth.BiometricManagerHelper;
 import com.boxcounter.app.ui.dialogs.AddQuantityDialog;
 import com.boxcounter.app.ui.dialogs.ManualAddDialog;

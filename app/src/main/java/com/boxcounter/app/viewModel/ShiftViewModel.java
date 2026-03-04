@@ -31,7 +31,7 @@ public class ShiftViewModel extends AndroidViewModel {
     }
 
     //Test Constructor
-    ShiftViewModel(@NonNull Application application, ShiftRepo repo, ShiftValidator validator) {
+    public ShiftViewModel(@NonNull Application application, ShiftRepo repo, ShiftValidator validator) {
         super(application);
 
         this.repo = repo;
