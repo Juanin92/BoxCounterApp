@@ -1,6 +1,6 @@
 package com.example.boxcounter.viewModel;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -12,7 +12,7 @@ import android.app.Application;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.boxcounter.model.entity.Shift;
+import com.example.boxcounter.core.entity.Shift;
 import com.example.boxcounter.repository.ShiftRepo;
 import com.example.boxcounter.validation.ShiftValidator;
 

@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import com.example.boxcounter.exceptions.ActiveShiftNotFoundException;
 import com.example.boxcounter.exceptions.InvalidQuantityException;
 import com.example.boxcounter.exceptions.InvalidShiftStateException;
-import com.example.boxcounter.model.entity.Shift;
+import com.example.boxcounter.core.entity.Shift;
 
 import org.junit.Before;
 import org.junit.Test;

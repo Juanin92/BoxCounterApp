@@ -6,8 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.boxcounter.model.entity.Shift;
-
+import com.example.boxcounter.core.entity.Shift;
 import java.util.List;
 
 @Dao

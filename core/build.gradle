@@ -1,21 +1,18 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
 }
 
 android {
-    namespace 'com.example.boxcounter'
+    namespace 'com.example.boxcounter.core'
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId "com.example.boxcounter"
         minSdk 26
-        targetSdk 36
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -25,25 +22,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
 
 dependencies {
     implementation libs.appcompat
     implementation libs.material
-    implementation libs.activity
-    implementation libs.constraintlayout
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    testImplementation "org.mockito:mockito-core:5.5.0"
-    testImplementation "androidx.arch.core:core-testing:2.2.0"
     def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-    implementation "androidx.biometric:biometric:1.2.0-alpha05"
-    implementation "com.google.android.material:material:1.11.0"
-    implementation project(":core")
 }

@@ -6,8 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.boxcounter.model.entity.Shift;
-
+import com.example.boxcounter.core.entity.Shift;
 @Database(entities = {Shift.class}, version = 2, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 

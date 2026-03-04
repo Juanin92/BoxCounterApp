@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.boxcounter.R;
-import com.example.boxcounter.model.entity.Shift;
+import com.example.boxcounter.core.entity.Shift;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
 import com.example.boxcounter.ui.dialogs.ActiveShiftDialog;
 import com.example.boxcounter.viewModel.ShiftViewModel;

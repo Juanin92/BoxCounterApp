@@ -57,4 +57,5 @@ dependencies {
     implementation("androidx.wear.compose:compose-material:1.3.0")
     implementation("androidx.wear.compose:compose-foundation:1.3.0")
     implementation("androidx.activity:activity-ktx:1.8.2")
+    implementation(project(":core"))
 }
