@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.boxcounter"
+    namespace = "com.example.boxcounter.wear"
     compileSdk {
         version = release(36)
     }

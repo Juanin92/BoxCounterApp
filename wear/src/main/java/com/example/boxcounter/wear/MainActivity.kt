@@ -1,4 +1,4 @@
-package com.example.boxcounter.presentation
+package com.example.boxcounter.wear
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
