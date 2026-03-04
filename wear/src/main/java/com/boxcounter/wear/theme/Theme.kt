@@ -1,4 +1,4 @@
-package com.example.boxcounter.wear.theme
+package com.boxcounter.wear.theme
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.MaterialTheme

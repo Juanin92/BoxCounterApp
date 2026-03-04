@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.boxcounter.core.entity.Shift;
+import com.boxcounter.core.entity.Shift;
 import com.boxcounter.app.repository.ShiftRepo;
 import com.boxcounter.app.validation.ShiftValidator;
 

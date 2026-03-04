@@ -1,4 +1,4 @@
-package com.example.boxcounter.core.entity;
+package com.boxcounter.core.entity;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;

@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.boxcounter.app.data.local.AppDataBase;
 import com.boxcounter.app.data.local.ShiftDao;
-import com.example.boxcounter.core.entity.Shift;
+import com.boxcounter.core.entity.Shift;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

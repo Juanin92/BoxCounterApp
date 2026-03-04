@@ -13,7 +13,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 
 import com.boxcounter.app.viewModel.ShiftViewModel;
-import com.example.boxcounter.core.entity.Shift;
+import com.boxcounter.core.entity.Shift;
 import com.boxcounter.app.repository.ShiftRepo;
 import com.boxcounter.app.validation.ShiftValidator;
 

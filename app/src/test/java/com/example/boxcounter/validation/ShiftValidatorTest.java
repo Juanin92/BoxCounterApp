@@ -6,7 +6,7 @@ import com.boxcounter.app.exceptions.ActiveShiftNotFoundException;
 import com.boxcounter.app.exceptions.InvalidQuantityException;
 import com.boxcounter.app.exceptions.InvalidShiftStateException;
 import com.boxcounter.app.validation.ShiftValidator;
-import com.example.boxcounter.core.entity.Shift;
+import com.boxcounter.core.entity.Shift;
 
 import org.junit.Before;
 import org.junit.Test;

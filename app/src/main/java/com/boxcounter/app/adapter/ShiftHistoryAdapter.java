@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.boxcounter.app.R;
-import com.example.boxcounter.core.entity.Shift;
+import com.boxcounter.core.entity.Shift;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

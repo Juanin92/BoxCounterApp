@@ -3,7 +3,7 @@ package com.boxcounter.app.validation;
 import com.boxcounter.app.exceptions.ActiveShiftNotFoundException;
 import com.boxcounter.app.exceptions.InvalidQuantityException;
 import com.boxcounter.app.exceptions.InvalidShiftStateException;
-import com.example.boxcounter.core.entity.Shift;
+import com.boxcounter.core.entity.Shift;
 public class ShiftValidator {
 
     public void validateShift(Shift shift){

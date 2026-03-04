@@ -1,4 +1,4 @@
-package com.example.boxcounter.wear
+package com.boxcounter.wear
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
