@@ -58,4 +58,8 @@ dependencies {
     implementation("androidx.wear.compose:compose-foundation:1.3.0")
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation(project(":core"))
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
 }
