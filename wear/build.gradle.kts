@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.boxcounter.wear"
+    namespace = "com.boxcounter.wear"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.boxcounter"
+        applicationId = "com.boxcounter"
         minSdk = 30
         targetSdk = 36
         versionCode = 1

@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.boxcounter.core'
+    namespace 'com.boxcounter.core'
     compileSdk {
         version = release(36)
     }
