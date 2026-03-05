@@ -18,7 +18,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,6 +31,7 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.tooling.preview.devices.WearDevices
+import com.boxcounter.core.entity.Shift
 import com.boxcounter.wear.data.DataBaseProvider
 import com.boxcounter.wear.repository.ShiftRepo
 import com.boxcounter.wear.viewModel.BoxCounterViewModel
@@ -53,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 val shift = viewModel.currentShift
                 val currentQuantity = shift?.quantity ?:0
                 BoxCounterScreen(
-                    currentCount = currentQuantity,
+                    currentShift = shift,
                     onIncrement = { viewModel.increment() },
                     onDecrement = { viewModel.decrement() }
                 )
@@ -64,60 +67,79 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BoxCounterScreen(
-    currentCount: Int,
+    currentShift: Shift?,
     onIncrement: () -> Unit,
     onDecrement: () -> Unit
     ) {
-        val counterColor = when (currentCount) {
-            in 0..49 -> Color.White
-            in 50..99 -> Color.Yellow
-            else -> Color.Green
-        }
-
+        val backgroundGradient = Brush.verticalGradient(
+            colors = listOf(Color(0xFF1E293B), Color(0xFF0F172A))
+        )
         Scaffold(
             timeText = { TimeText() }
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(bottom = 8.dp)
-                    .background(Color(0xFF0F172A)),
+                    .padding(bottom = 1.dp)
+                    .background(Color(0xFF0F172A)).background(backgroundGradient),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Cajas", style = MaterialTheme.typography.caption2)
-
-                Text(
-                    text = "$currentCount",
-                    fontSize = 44.sp,
-                    color = counterColor,
-                    style = MaterialTheme.typography.display1)
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    Button(
-                        onClick = onDecrement,
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color.Red
-                        )) {
-                        Text(
-                            "-",
-                            style = MaterialTheme.typography.title2,
-                            color = Color.White)
+                if(currentShift == null || !currentShift.isActive) {
+                    Text(
+                        text = "No hay turno activo",
+                        style = MaterialTheme.typography.caption1,
+                        color = Color.Gray,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = "Inicia un turno en tu teléfono",
+                        style = MaterialTheme.typography.body2,
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }else {
+                    val counterColor = when (currentShift.quantity) {
+                        in 0..49 -> Color.White
+                        in 50..99 -> Color.Yellow
+                        else -> Color.Green
                     }
-                    Button(
-                        onClick = onIncrement,
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color.Green
-                        )) {
-                        Text(
-                            "+",
-                            style = MaterialTheme.typography.title2,
-                            color = Color.White)
+
+                    Text(text = "Cajas", style = MaterialTheme.typography.caption2)
+
+                    Text(
+                        text = "${currentShift.quantity}",
+                        fontSize = 44.sp,
+                        color = counterColor,
+                        style = MaterialTheme.typography.display1)
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        Button(
+                            onClick = onDecrement,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.Red
+                            )) {
+                            Text(
+                                "-",
+                                style = MaterialTheme.typography.title2,
+                                color = Color.White)
+                        }
+                        Button(
+                            onClick = onIncrement,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.Green
+                            )) {
+                            Text(
+                                "+",
+                                style = MaterialTheme.typography.title2,
+                                color = Color.White)
+                        }
                     }
                 }
             }
@@ -129,7 +151,11 @@ fun BoxCounterScreen(
 fun BoxCounterPreview() {
     MaterialTheme {
         BoxCounterScreen(
-            currentCount = 57,
+            currentShift = Shift().apply {
+                id = 1
+                quantity = 45
+                isActive = true
+            },
             onIncrement = {},
             onDecrement = {}
         )
