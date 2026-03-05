@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,22 +28,31 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.tooling.preview.devices.WearDevices
+import com.boxcounter.wear.data.DataBaseProvider
+import com.boxcounter.wear.repository.ShiftRepo
+import com.boxcounter.wear.viewModel.BoxCounterViewModel
+import com.boxcounter.wear.viewModel.BoxCounterViewModelFactory
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: BoxCounterViewModel by viewModels()
+    private val viewModel: BoxCounterViewModel by viewModels{
+        val database = DataBaseProvider.getDataBase(this)
+        val dao = database.shiftDao()
+        val repository = ShiftRepo(dao)
+        BoxCounterViewModelFactory(repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
-
         super.onCreate(savedInstanceState)
-
         setTheme(R.style.Theme_DeviceDefault)
 
         setContent {
             MaterialTheme {
+                val shift = viewModel.currentShift
+                val currentQuantity = shift?.quantity ?:0
                 BoxCounterScreen(
-                    currentCount = viewModel.count.value,
+                    currentCount = currentQuantity,
                     onIncrement = { viewModel.increment() },
                     onDecrement = { viewModel.decrement() }
                 )
@@ -67,11 +77,13 @@ fun BoxCounterScreen(
             timeText = { TimeText() }
         ) {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = 8.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Cajas", fontSize = 14.sp)
+                Text(text = "Cajas", style = MaterialTheme.typography.caption2)
 
                 Text(
                     text = "$currentCount",
@@ -79,7 +91,7 @@ fun BoxCounterScreen(
                     color = counterColor,
                     style = MaterialTheme.typography.display1)
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -90,14 +102,20 @@ fun BoxCounterScreen(
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = Color.Red
                         )) {
-                        Text("-", color = Color.Black)
+                        Text(
+                            "-",
+                            style = MaterialTheme.typography.title2,
+                            color = Color.White)
                     }
                     Button(
                         onClick = onIncrement,
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = Color.Green
                         )) {
-                        Text("+", color = Color.Black)
+                        Text(
+                            "+",
+                            style = MaterialTheme.typography.title2,
+                            color = Color.White)
                     }
                 }
             }
