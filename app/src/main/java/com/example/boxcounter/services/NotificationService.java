@@ -12,10 +12,16 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.example.boxcounter.R;
+import com.example.boxcounter.model.entity.Shift;
 import com.example.boxcounter.receivers.CounterReceiver;
+import com.example.boxcounter.repository.ShiftRepo;
+import com.example.boxcounter.ui.activities.MainActivity;
 import com.example.boxcounter.utils.AppConstants;
 
 public class NotificationService extends Service {
+
+    private ShiftRepo repo;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -25,17 +31,17 @@ public class NotificationService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
+        repo = new ShiftRepo(getApplicationContext());
         createNotificationChannel();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Shift activeShift = repo.getActiveShiftSync();
         int currentCount = 0;
-        if (intent != null) {
-            currentCount = intent.getIntExtra("CURRENT_COUNT", 0);
+        if (activeShift != null) {
+            currentCount = activeShift.getQuantity();
         }
-        createNotificationChannel();
-
         startForeground(AppConstants.NOTIFICATION_ID, buildNotification(currentCount));
         return START_STICKY;
     }
@@ -59,21 +65,26 @@ public class NotificationService extends Service {
                 incrementIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        Intent stopIntent = new Intent(this, CounterReceiver.class);
-        stopIntent.setAction(AppConstants.ACTION_DECREMENT);
+        Intent decrementIntent = new Intent(this, CounterReceiver.class);
+        decrementIntent.setAction(AppConstants.ACTION_DECREMENT);
         PendingIntent decrementPending = PendingIntent.getBroadcast(this, 2,
-                stopIntent,
+                decrementIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
+        Intent notifyIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+                notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
         return new NotificationCompat.Builder(this, AppConstants.NOTIFICATION_CHANNEL_ID)
-                .setContentTitle("Box Counter Active")
-                .setContentText("Cajas Actual: " + count)
+                .setContentTitle("Turno Activo")
+                .setContentText("Cajas registradas: " + count)
                 .setSmallIcon(R.drawable.ic_box_counter)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setOngoing(true)
+                .setContentIntent(pendingIntent)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(android.R.drawable.ic_input_add, "+", incrementPending)
-                .addAction(android.R.drawable.ic_delete, "-", decrementPending)
+                .addAction(R.drawable.ic_minus, "-", decrementPending)
                 .build();
     }
 }
