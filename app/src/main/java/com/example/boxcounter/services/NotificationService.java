@@ -6,7 +6,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -18,9 +20,13 @@ import com.example.boxcounter.repository.ShiftRepo;
 import com.example.boxcounter.ui.activities.MainActivity;
 import com.example.boxcounter.utils.AppConstants;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class NotificationService extends Service {
 
     private ShiftRepo repo;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Nullable
     @Override
@@ -37,12 +43,14 @@ public class NotificationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Shift activeShift = repo.getActiveShiftSync();
-        int currentCount = 0;
-        if (activeShift != null) {
-            currentCount = activeShift.getQuantity();
-        }
-        startForeground(AppConstants.NOTIFICATION_ID, buildNotification(currentCount));
+        executor.execute(() -> {
+            Shift activeShift = repo.getActiveShiftSync();
+            int currentCount = (activeShift != null) ? activeShift.getQuantity() : 0;
+
+            new Handler(Looper.getMainLooper()).post(() ->
+                    startForeground(AppConstants.NOTIFICATION_ID, buildNotification(currentCount)));
+        });
+
         return START_STICKY;
     }
 

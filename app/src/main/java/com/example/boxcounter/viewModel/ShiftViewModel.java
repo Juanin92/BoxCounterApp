@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.boxcounter.model.entity.Shift;
 import com.example.boxcounter.repository.ShiftRepo;
+import com.example.boxcounter.utils.NotificationHelper;
 import com.example.boxcounter.utils.ShiftLogic;
 import com.example.boxcounter.validation.ShiftValidator;
 
@@ -27,7 +28,7 @@ public class ShiftViewModel extends AndroidViewModel {
 
         repo = new ShiftRepo(application);
         validator = new ShiftValidator();
-        shiftLogic = new ShiftLogic(application);
+        shiftLogic = new ShiftLogic(this.repo);
 
         activeShift = repo.getActiveShift();
         history = repo.getHistory();
@@ -39,7 +40,7 @@ public class ShiftViewModel extends AndroidViewModel {
 
         this.repo = repo;
         this.validator = validator;
-        shiftLogic = new ShiftLogic(application);
+        shiftLogic = new ShiftLogic(this.repo);
 
         this.activeShift = repo.getActiveShift();
         this.history = repo.getHistory();
@@ -59,10 +60,12 @@ public class ShiftViewModel extends AndroidViewModel {
 
     public void increment(){
        shiftLogic.increment();
+       NotificationHelper.startService(getApplication());
     }
 
     public void decrement(){
         shiftLogic.decrement();
+        NotificationHelper.startService(getApplication());
     }
 
     public void updateManuallyQuantity(int updateQuantity){
@@ -72,6 +75,7 @@ public class ShiftViewModel extends AndroidViewModel {
 
             validator.validateShift(shift);
             repo.update(shift);
+            NotificationHelper.startService(getApplication());
         });
     }
 
@@ -82,6 +86,7 @@ public class ShiftViewModel extends AndroidViewModel {
 
             validator.validateShift(shift);
             repo.update(shift);
+            NotificationHelper.startService(getApplication());
         });
     }
 
