@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.boxcounter.model.entity.Shift;
 import com.example.boxcounter.repository.ShiftRepo;
+import com.example.boxcounter.utils.ShiftLogic;
 import com.example.boxcounter.validation.ShiftValidator;
 
 import java.util.List;
@@ -19,12 +20,14 @@ public class ShiftViewModel extends AndroidViewModel {
     private final LiveData<Shift> activeShift;
     private final LiveData<List<Shift>> history;
     private final ShiftValidator validator;
+    private final ShiftLogic shiftLogic;
 
     public ShiftViewModel(@NonNull Application application) {
         super(application);
 
         repo = new ShiftRepo(application);
         validator = new ShiftValidator();
+        shiftLogic = new ShiftLogic(application);
 
         activeShift = repo.getActiveShift();
         history = repo.getHistory();
@@ -36,6 +39,7 @@ public class ShiftViewModel extends AndroidViewModel {
 
         this.repo = repo;
         this.validator = validator;
+        shiftLogic = new ShiftLogic(application);
 
         this.activeShift = repo.getActiveShift();
         this.history = repo.getHistory();
@@ -54,20 +58,11 @@ public class ShiftViewModel extends AndroidViewModel {
     }
 
     public void increment(){
-       currentShift(shift -> {
-           shift.setQuantity(shift.getQuantity() + 1);
-           validator.validateShift(shift);
-           repo.update(shift);
-       });
+       shiftLogic.increment();
     }
 
     public void decrement(){
-        currentShift(shift -> {
-            if (shift.getQuantity() == 0) return;
-            shift.setQuantity(shift.getQuantity() - 1);
-            validator.validateShift(shift);
-            repo.update(shift);
-        });
+        shiftLogic.decrement();
     }
 
     public void updateManuallyQuantity(int updateQuantity){
