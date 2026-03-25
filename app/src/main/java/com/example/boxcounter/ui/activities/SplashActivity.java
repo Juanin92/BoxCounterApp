@@ -17,6 +17,7 @@ import com.example.boxcounter.R;
 import com.example.boxcounter.model.entity.Shift;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
 import com.example.boxcounter.ui.dialogs.ActiveShiftDialog;
+import com.example.boxcounter.utils.NotificationHelper;
 import com.example.boxcounter.viewModel.ShiftViewModel;
 
 @SuppressLint("CustomSplashScreen")
@@ -50,6 +51,7 @@ public class SplashActivity extends AppCompatActivity {
                 btnStart.setText("Iniciar Turno");
                 btnStart.setOnClickListener(v -> biometricManagerHelper.authenticate(() -> {
                     viewModel.startNewShift();
+                    NotificationHelper.startService(this);
                     startActivity(new Intent(this, MainActivity.class));
                     finish();
                 }));

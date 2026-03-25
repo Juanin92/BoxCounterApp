@@ -70,6 +70,10 @@ public class ShiftRepo {
         return shiftDao.getAllShifts();
     }
 
+    public Shift getActiveShiftSync(){
+        return shiftDao.getActiveShift();
+    }
+
     private Shift validateShiftTimeOut(Shift shift){
         long now = System.currentTimeMillis();
         long diff = now - shift.getStartTime();
