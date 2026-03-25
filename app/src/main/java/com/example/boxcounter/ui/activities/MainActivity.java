@@ -18,6 +18,7 @@ import com.example.boxcounter.R;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
 import com.example.boxcounter.ui.dialogs.AddQuantityDialog;
 import com.example.boxcounter.ui.dialogs.ManualAddDialog;
+import com.example.boxcounter.utils.NotificationHelper;
 import com.example.boxcounter.viewModel.ShiftViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         btnMinus.setOnClickListener(v -> viewModel.decrement());
         btnFinish.setOnClickListener(v -> biometricManagerHelper.authenticate(() -> {
             viewModel.finish();
+            NotificationHelper.stopService(this);
 
             Intent intent = new Intent(MainActivity.this, SplashActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
