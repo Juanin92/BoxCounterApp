@@ -1,10 +1,23 @@
+<p align="center">
+  <img src="./app/src/main/res/drawable/ic_box_counter.png" width="120"/>
+</p>
+
+
 # 📦 BoxCounterApp
 
 ![Android](https://img.shields.io/badge/Platform-Android-brightgreen.svg)
 ![Java](https://img.shields.io/badge/Language-Java-orange.svg)
 ![Architecture](https://img.shields.io/badge/Architecture-MVVM-blue.svg)
 
-**BoxCounterApp** es una herramienta profesional diseñada para el conteo logístico de cajas en tiempo real. Enfocada en la eficiencia operativa, permite a los usuarios gestionar inventarios directamente desde la interfaz de la aplicación o mediante un panel de control interactivo en la barra de notificaciones.
+**BoxCounterApp** es una herramienta profesional diseñada para el conteo logístico de cajas en tiempo real para reponedores. Enfocada en la eficiencia operativa, permite a los usuarios gestionar la reposición de cajas por turno directamente desde la interfaz de la aplicación o mediante un panel de control interactivo en la barra de notificaciones.
+
+---
+
+🎯 Contexto
+
+Este proyecto surge como solución a la necesidad de reemplazar métodos manuales de conteo (papel o memoria), los cuales suelen generar errores, inconsistencias y falta de trazabilidad en procesos logísticos.
+
+La aplicación permite mantener un registro confiable, validado y persistente del conteo de productos durante cada turno de trabajo.
 
 ---
 
@@ -22,7 +35,7 @@
 
 Este proyecto fue construido siguiendo las mejores prácticas de desarrollo Android:
 
-* **Lenguaje:** Java (100%).
+* **Lenguaje:** Java.
 * **Arquitectura:** MVVM (Model-View-ViewModel).
 * **Persistencia:** [Room Database](https://developer.android.com/training/data-storage/room) con patrón Singleton.
 * **Concurrencia:** Manejo de hilos mediante `ExecutorService` para operaciones no bloqueantes.
@@ -42,6 +55,12 @@ La aplicación respeta una separación estricta de responsabilidades:
 
 ---
 
+## 📸 Capturas del Sistema
+
+![Demo](./doc/img/boxCounter.gif)
+
+---
+
 ## 📦 Instalación y Uso
 
 1.  Clona este repositorio:
@@ -51,6 +70,13 @@ La aplicación respeta una separación estricta de responsabilidades:
 2.  Abre el proyecto en **Android Studio**.
 3.  Sincroniza el proyecto con los archivos Gradle.
 4.  Ejecuta en un dispositivo físico o emulador (API 26+ recomendado para Notificaciones).
+
+---
+
+⚠️ Limitaciones
+Aplicación enfocada en uso local (sin backend ni sincronización remota)
+No diseñada para operación multiusuario en tiempo real
+Persistencia limitada al dispositivo
 
 ---
 
