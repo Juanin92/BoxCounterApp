@@ -1,0 +1,9 @@
+com.boxcounter.wear
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable splash_icon
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string hello_world
+style MainActivityTheme_Starting
