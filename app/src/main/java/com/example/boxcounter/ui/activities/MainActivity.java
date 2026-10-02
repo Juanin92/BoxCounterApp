@@ -138,6 +138,12 @@ public class MainActivity extends AppCompatActivity {
         String currentName = userPreferences.getUserName();
 
         EditNameDialog dialog = EditNameDialog.newInstance(currentName, isCancelable, newName -> {
+            String cleanName = newName.trim().toLowerCase();
+            if (cleanName.contains("vino")){
+                triggerEasterEggAnimation();
+                newName = currentName;
+            }
+
             userPreferences.saveUserName(newName);
             updateUserNameUI();
         });
@@ -244,6 +250,24 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     lottieNameClick.setVisibility(View.GONE);
+                }
+            });
+        }
+    }
+
+    private void triggerEasterEggAnimation() {
+        if (lottieCelebration != null) {
+            lottieCelebration.setAnimation(R.raw.wine);
+            lottieCelebration.setVisibility(View.VISIBLE);
+            lottieCelebration.setSpeed(1.0f);
+            lottieCelebration.playAnimation();
+
+            lottieCelebration.removeAllAnimatorListeners();
+            lottieCelebration.addAnimatorListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    lottieCelebration.setVisibility(View.GONE);
+                    lottieCelebration.setAnimation(R.raw.wine);
                 }
             });
         }
