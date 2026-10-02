@@ -1,7 +1,9 @@
 package com.example.boxcounter.ui.activities;
 
 
+import android.animation.ArgbEvaluator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btnEditName;
     private BiometricManagerHelper biometricManagerHelper;
     private UserPreferences userPreferences;
+    private final ArgbEvaluator colorEvaluator = new ArgbEvaluator();
 
 
     @Override
@@ -58,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(ShiftViewModel.class);
         viewModel.getActiveShift().observe(this, shift -> {
             if (shift != null){
-                tvQuantity.setText(String.valueOf(shift.getQuantity()));
+                int quantity = shift.getQuantity();
+                tvQuantity.setText(String.valueOf(quantity));
+
+                updateQuantityColor(quantity);
             }
         });
 
@@ -153,6 +159,31 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    private void updateQuantityColor(int count){
+        if (tvQuantity == null) return;
+
+        int finalColor;
+        int colorWhite = Color.parseColor("#F8FAFC");
+        int colorYellow = Color.parseColor("#F59E0B");
+        int colorGreen = Color.parseColor("#22C55E");
+        int colorGold = Color.parseColor("#00E5FF");
+
+        if (count < 50){
+            float fraction = count / 50.0f;
+            finalColor = (int) colorEvaluator.evaluate(fraction, colorWhite, colorYellow);
+        } else if (count < 100) {
+            float fraction = (count - 50) / 50.0f;
+            finalColor = (int) colorEvaluator.evaluate(fraction, colorYellow, colorGreen);
+        } else if (count < 150) {
+            float fraction = (count - 100) / 50.0f;
+            finalColor = (int) colorEvaluator.evaluate(fraction, colorGreen, colorGold);
+        } else {
+            finalColor = colorGold;
+        }
+
+        tvQuantity.setTextColor(finalColor);
     }
 
     private void triggerFireWorksAnimation(){
