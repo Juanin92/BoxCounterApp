@@ -89,4 +89,8 @@ public class ShiftHistoryAdapter extends RecyclerView.Adapter<ShiftHistoryAdapte
             tvActive = itemView.findViewById(R.id.tvActive);
         }
     }
+
+    public Shift getShiftAt(int position) {
+        return shiftList.get(position);
+    }
 }
