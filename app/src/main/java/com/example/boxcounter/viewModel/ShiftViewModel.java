@@ -93,7 +93,12 @@ public class ShiftViewModel extends AndroidViewModel {
     public void finish(){
         currentShift(shift -> {
             validator.validateShift(shift);
-            repo.finishShift(shift);
+            if (shift.getQuantity() > 0) {
+                repo.finishShift(shift);
+            } else {
+                repo.deleteActiveShift(shift);
+            }
+            NotificationHelper.stopService(getApplication());
         });
     }
 
@@ -102,5 +107,9 @@ public class ShiftViewModel extends AndroidViewModel {
         if (shift == null) return;
 
         action.accept(shift);
+    }
+
+    public void deleteShift(Shift shift) {
+        repo.delete(shift);
     }
 }

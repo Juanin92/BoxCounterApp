@@ -66,6 +66,19 @@ public class ShiftRepo {
         });
     }
 
+    public void delete(Shift shift) {
+        executor.execute(() -> {
+            shiftDao.delete(shift);
+        });
+    }
+
+    public void deleteActiveShift(Shift shift) {
+        executor.execute(() -> {
+            shiftDao.delete(shift);
+            activeShift.postValue(null);
+        });
+    }
+
     public LiveData<List<Shift>> getHistory(){
         return shiftDao.getAllShifts();
     }
