@@ -1,12 +1,15 @@
 package com.example.boxcounter.ui.activities;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +26,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.boxcounter.R;
 import com.example.boxcounter.ui.auth.BiometricManagerHelper;
 import com.example.boxcounter.ui.dialogs.AddQuantityDialog;
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private BiometricManagerHelper biometricManagerHelper;
     private UserPreferences userPreferences;
     private final ArgbEvaluator colorEvaluator = new ArgbEvaluator();
+    private LottieAnimationView lottieCelebration;
+    private boolean milestone100Reached =  false;
 
 
     @Override
@@ -57,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnPlus = findViewById(R.id.btnPlus);
         Button btnMinus = findViewById(R.id.btnMinus);
         Button btnFinish = findViewById(R.id.btnFinish);
+        lottieCelebration = findViewById(R.id.lottieCelebration);
 
         viewModel = new ViewModelProvider(this).get(ShiftViewModel.class);
         viewModel.getActiveShift().observe(this, shift -> {
@@ -65,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 tvQuantity.setText(String.valueOf(quantity));
 
                 updateQuantityColor(quantity);
+
+                checkMilestoneCelebration(quantity);
             }
         });
 
@@ -186,6 +195,27 @@ public class MainActivity extends AppCompatActivity {
         tvQuantity.setTextColor(finalColor);
     }
 
+    private void checkMilestoneCelebration(int count){
+        if (count >= 100 && !milestone100Reached){
+            milestone100Reached = true;
+            triggerFireWorksAnimation();
+        } else if (count < 100) {
+            milestone100Reached = false;
+        }
+    }
+
     private void triggerFireWorksAnimation(){
+        if (lottieCelebration != null){
+            lottieCelebration.setVisibility(View.VISIBLE);
+            lottieCelebration.setSpeed(0.4f);
+            lottieCelebration.playAnimation();
+
+            lottieCelebration.addAnimatorListener(new AnimatorListenerAdapter(){
+                @Override
+                public void onAnimationEnd(Animator animation){
+                    lottieCelebration.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 }

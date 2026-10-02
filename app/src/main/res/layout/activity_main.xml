@@ -233,4 +233,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Animación de Celebración / Fuegos Artificiales -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieCelebration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:elevation="20dp"
+        app:lottie_rawRes="@raw/fireworks"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
