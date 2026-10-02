@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private UserPreferences userPreferences;
     private final ArgbEvaluator colorEvaluator = new ArgbEvaluator();
     private LottieAnimationView lottieCelebration;
+    private LottieAnimationView lottieNameClick;
     private boolean milestone100Reached =  false;
 
 
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnMinus = findViewById(R.id.btnMinus);
         Button btnFinish = findViewById(R.id.btnFinish);
         lottieCelebration = findViewById(R.id.lottieCelebration);
+        lottieNameClick = findViewById(R.id.lottieCelebrationName);
+        View containerUser = findViewById(R.id.containerUser);
 
         viewModel = new ViewModelProvider(this).get(ShiftViewModel.class);
         viewModel.getActiveShift().observe(this, shift -> {
@@ -118,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
         checkAndPromptUserName();
 
         btnEditName.setOnClickListener(v -> showEditNameDialog());
-        tvUserName.setOnClickListener(v -> triggerFireWorksAnimation());
+
+        containerUser.setOnClickListener(this::triggerNameAnimation);
     }
 
     private void checkAndPromptUserName(){
@@ -214,6 +218,32 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onAnimationEnd(Animator animation){
                     lottieCelebration.setVisibility(View.GONE);
+                }
+            });
+        }
+    }
+
+    private void triggerNameAnimation(View view){
+        if (view != null) {
+            view.animate()
+                    .scaleX(1.08f)
+                    .scaleY(1.08f)
+                    .setDuration(100)
+                    .withEndAction(() -> view.animate().scaleX(1.0f).scaleY(1.0f)
+                            .setDuration(100).start())
+                    .start();
+        }
+
+        if (lottieNameClick != null) {
+            lottieNameClick.setVisibility(View.VISIBLE);
+            lottieNameClick.setSpeed(1.2f);
+            lottieNameClick.playAnimation();
+
+            lottieNameClick.removeAllAnimatorListeners();
+            lottieNameClick.addAnimatorListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    lottieNameClick.setVisibility(View.GONE);
                 }
             });
         }

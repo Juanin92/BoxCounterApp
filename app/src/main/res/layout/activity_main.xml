@@ -56,6 +56,16 @@
         </LinearLayout>
 
 
+        <ImageView
+            android:id="@+id/btnEditName"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:src="@android:drawable/ic_menu_edit"
+            app:tint="#94A3B8"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Editar nombre" />
+
         <include
             android:id="@+id/btnHistory"
             layout="@layout/view_history_button"
@@ -87,15 +97,6 @@
             android:fontFamily="sans-serif-medium"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/btnEditName"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="8dp"
-            android:src="@android:drawable/ic_menu_edit"
-            app:tint="#94A3B8"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Editar nombre" />
     </LinearLayout>
 
     <!-- Card del contador principal -->
@@ -247,5 +248,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Animación de Celebración centrada sobre el Nombre del Usuario -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieCelebrationName"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:visibility="gone"
+        android:elevation="20dp"
+        app:lottie_rawRes="@raw/spark"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:layout_constraintTop_toTopOf="@id/containerUser"
+        app:layout_constraintBottom_toBottomOf="@id/containerUser"
+        app:layout_constraintStart_toStartOf="@id/containerUser"
+        app:layout_constraintEnd_toEndOf="@id/containerUser" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
