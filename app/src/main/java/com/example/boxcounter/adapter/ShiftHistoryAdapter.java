@@ -14,6 +14,7 @@ import com.example.boxcounter.model.entity.Shift;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -21,6 +22,8 @@ import java.util.Locale;
 public class ShiftHistoryAdapter extends RecyclerView.Adapter<ShiftHistoryAdapter.TurnViewHolder> {
 
     private List<Shift> shiftList = new ArrayList<>();
+    private boolean isAscending = false;
+    private String currentColumn = "DATE";
 
     public ShiftHistoryAdapter() {
     }
@@ -92,5 +95,32 @@ public class ShiftHistoryAdapter extends RecyclerView.Adapter<ShiftHistoryAdapte
 
     public Shift getShiftAt(int position) {
         return shiftList.get(position);
+    }
+
+    public void sortBy(String column) {
+        if (shiftList == null || shiftList.isEmpty()) return;
+
+        if (currentColumn.equals(column)) {
+            isAscending = !isAscending;
+        } else {
+            currentColumn = column;
+            isAscending = false;
+        }
+
+        if ("QUANTITY".equals(column)) {
+            shiftList.sort((s1, s2) -> isAscending ?
+                    Integer.compare(s1.getQuantity(), s2.getQuantity()) :
+                    Integer.compare(s2.getQuantity(), s1.getQuantity()));
+        } else {
+            shiftList.sort((s1, s2) -> isAscending ?
+                    Long.compare(s1.getStartTime(), s2.getStartTime()) :
+                    Long.compare(s2.getStartTime(), s1.getStartTime()));
+        }
+
+        notifyDataSetChanged();
+    }
+
+    public boolean isAscending() {
+        return isAscending;
     }
 }

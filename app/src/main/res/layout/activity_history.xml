@@ -102,15 +102,19 @@
             android:paddingVertical="14dp">
 
             <TextView
+                android:id="@+id/tvHeaderStart"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Inicio"
+                android:text="Inicio ↓"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#6366F1"
                 android:textAllCaps="true"
                 android:letterSpacing="0.08"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:fontFamily="sans-serif-medium"/>
 
             <TextView
@@ -126,6 +130,7 @@
                 android:fontFamily="sans-serif-medium"/>
 
             <TextView
+                android:id="@+id/tvHeaderQuantity"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -135,6 +140,9 @@
                 android:textColor="#6366F1"
                 android:textAllCaps="true"
                 android:letterSpacing="0.08"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:fontFamily="sans-serif-medium"/>
 
             <TextView

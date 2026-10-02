@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -61,6 +63,21 @@ public class HistoryActivity extends AppCompatActivity {
 
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+
+        TextView tvHeaderStart = findViewById(R.id.tvHeaderStart);
+        TextView tvHeaderQuantity = findViewById(R.id.tvHeaderQuantity);
+
+        tvHeaderStart.setOnClickListener(v -> {
+            adapter.sortBy("DATE");
+            tvHeaderStart.setText(adapter.isAscending() ? "Inicio ↑" : "Inicio ↓");
+            tvHeaderQuantity.setText("Cajas");
+        });
+
+        tvHeaderQuantity.setOnClickListener(v -> {
+            adapter.sortBy("QUANTITY");
+            tvHeaderQuantity.setText(adapter.isAscending() ? "Cajas ↑" : "Cajas ↓");
+            tvHeaderStart.setText("Inicio");
+        });
 
         setupSwipeToDelete();
     }
