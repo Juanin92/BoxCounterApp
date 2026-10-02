@@ -4,6 +4,7 @@ package com.example.boxcounter.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -131,7 +132,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void triggerFireWorksAnimation(){
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event){
+        int action = event.getAction();
+        int keyCode = event.getKeyCode();
 
+        if (action == KeyEvent.ACTION_DOWN){
+            switch (keyCode){
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                    if (viewModel != null){
+                        viewModel.increment();
+                    }
+                    return true;
+
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                    if (viewModel != null){
+                        viewModel.decrement();
+                    }
+                    return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    private void triggerFireWorksAnimation(){
     }
 }
