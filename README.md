@@ -23,11 +23,14 @@ La aplicación permite mantener un registro confiable, validado y persistente de
 
 ## 🚀 Características Principales
 
-* **Conteo en Tiempo Real:** Incremento y decremento de unidades con persistencia inmediata.
-* **Panel de Control en Notificación:** Interactúa con el contador desde la pantalla de bloqueo sin necesidad de abrir la app.
-* **Gestión de Turnos (Shifts):** Sistema de validación para asegurar que cada conteo pertenece a un registro activo.
-* **Entrada Manual:** Soporte para edición directa de cantidades mediante diálogos con validación.
-* **Seguridad:** Integración con **BiometricManager** para acciones críticas (Finalización de turno, ajustes manuales).
+- **Conteo en Tiempo Real:** Incremento y decremento de unidades con persistencia inmediata y gradación dinámica de color según el volumen alcanzado.
+- **Panel de Control en Notificación:** Interactúa con el contador desde la pantalla de bloqueo sin necesidad de abrir la app.
+- **Historial Interactivo Avanzado (v1.1):**
+    - **Ordenamiento Multinivel:** Toca las cabeceras ("Inicio" o "Cajas") para alternar el orden entre ascendente (↑) y descendente (↓).
+    - **Eliminación por Deslizamiento (Swipe-to-Delete):** Desliza registros hacia la izquierda con confirmación interactiva y retroalimentación visual.
+- **Integridad de Datos:** Validación automática que descarta turnos sin actividad (0 cajas) para evitar registros vacíos en memoria.
+- **UX Adaptativa y Animaciones:** Integración de animaciones Lottie para celebraciones de hitos (100 cajas) e interacciones con el usuario.
+- **Entrada Manual & Seguridad:** Soporte para edición directa de cantidades con validaciones y autenticación mediante **BiometricManager** para acciones críticas.
 
 ---
 
@@ -35,12 +38,13 @@ La aplicación permite mantener un registro confiable, validado y persistente de
 
 Este proyecto fue construido siguiendo las mejores prácticas de desarrollo Android:
 
-* **Lenguaje:** Java.
-* **Arquitectura:** MVVM (Model-View-ViewModel).
-* **Persistencia:** [Room Database](https://developer.android.com/training/data-storage/room) con patrón Singleton.
-* **Concurrencia:** Manejo de hilos mediante `ExecutorService` para operaciones no bloqueantes.
-* **UI Components:** LiveData, ViewModel, Material Components, ViewBinding.
-* **Servicios:** Foreground Services para la persistencia del panel de notificaciones.
+- **Lenguaje:** Java.
+- **Arquitectura:** MVVM (Model-View-ViewModel).
+- **Persistencia:** [Room Database](https://developer.android.com/training/data-storage/room) con patrón Singleton y operaciones asíncronas.
+- **Animaciones Vectoriales:** [Lottie](https://airbnb.io/lottie/#/android) para microinteracciones fluidas.
+- **Concurrencia:** Manejo de hilos mediante `ExecutorService` para operaciones no bloqueantes.
+- **UI Components:** LiveData, ViewModel, Material Components (`ItemTouchHelper`, `MaterialCardView`), Edge-To-Edge layout.
+- **Servicios:** Foreground Services para la persistencia del panel de notificaciones.
 
 ---
 
